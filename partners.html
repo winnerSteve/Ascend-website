@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partners — ASCEND</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+  /* ─── PARTNERS GRID ─── */
+  #partners-main { padding: 7rem 5%; }
+  .partners-intro-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: end; margin-bottom: 5rem;
+  }
+  .partners-lead { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; }
+
+  .partner-full-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px; background: var(--border);
+  }
+  .partner-full-cell {
+    background: var(--navy);
+    padding: 3rem 2.5rem;
+    position: relative; overflow: hidden;
+    cursor: default;
+    transition: background 0.4s;
+  }
+  .partner-full-cell:hover { background: var(--navy-light); }
+  .partner-full-cell::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--gold);
+    transition: width 0.5s var(--ease);
+  }
+  .partner-full-cell:hover::before { width: 100%; }
+  .partner-badge {
+    display: inline-flex;
+    padding: 0.3rem 0.7rem;
+    border: 0.5px solid var(--border);
+    font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 1.5rem;
+  }
+  .partner-full-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300;
+    color: var(--white); margin-bottom: 0.5rem;
+  }
+  .partner-full-industry {
+    font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold-dim); margin-bottom: 1.5rem;
+  }
+  .partner-full-desc {
+    font-size: 0.88rem; color: var(--cream-dim); line-height: 1.8;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .partner-full-cell:hover .partner-full-desc { opacity: 1; transform: none; }
+
+  /* ─── TIERS ─── */
+  #tiers { background: var(--navy-mid); padding: 7rem 5%; }
+  .tiers-header { margin-bottom: 4rem; }
+  .tiers-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px; background: var(--border);
+  }
+  .tier-card {
+    background: var(--navy-mid);
+    padding: 3rem 2.5rem;
+    position: relative; overflow: hidden;
+    transition: background 0.4s;
+  }
+  .tier-card:hover { background: var(--navy-light); }
+  .tier-rank {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem; font-weight: 300;
+    color: rgba(198,169,107,0.07);
+    position: absolute; top: 0.5rem; right: 1.2rem;
+    line-height: 1; user-select: none;
+    transition: color 0.4s;
+  }
+  .tier-card:hover .tier-rank { color: rgba(198,169,107,0.14); }
+  .tier-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem; font-weight: 400;
+    color: var(--white); margin-bottom: 0.5rem;
+  }
+  .tier-name em { font-style: italic; color: var(--gold); }
+  .tier-desc { font-size: 0.88rem; color: var(--cream-dim); line-height: 1.8; margin-bottom: 1.5rem; }
+  .tier-perks { list-style: none; }
+  .tier-perks li {
+    font-size: 0.82rem; color: var(--cream-dim);
+    padding: 0.5rem 0;
+    border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .tier-perks li:last-child { border-bottom: none; }
+  .tier-perks li::before {
+    content: '';
+    display: block; width: 4px; height: 4px;
+    border-radius: 50%; background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ─── IMPACT ─── */
+  #impact { padding: 7rem 5%; }
+  .impact-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; align-items: center;
+  }
+  .impact-text h2 { margin-bottom: 1rem; }
+  .impact-text p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-bottom: 1.2rem; }
+  .impact-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5px; background: var(--border);
+  }
+
+  /* ─── PARTNER CTA ─── */
+  #partner-cta {
+    background: var(--navy-mid); padding: 8rem 5%; text-align: center;
+  }
+  #partner-cta h2 { margin-bottom: 1rem; }
+  #partner-cta p { color: var(--cream-dim); max-width: 520px; margin: 0 auto 3rem; font-size: 1rem; line-height: 1.85; }
+
+  @media (max-width: 900px) {
+    .partners-intro-row { grid-template-columns: 1fr; gap: 2.5rem; }
+    .partner-full-grid { grid-template-columns: repeat(2, 1fr); }
+    .tiers-grid { grid-template-columns: 1fr; }
+    .impact-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+    .impact-stats { grid-template-columns: repeat(2, 1fr); }
+    .partner-full-desc { opacity: 1; transform: none; }
+  }
+  @media (max-width: 640px) {
+    .partner-full-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="site-overlay"><div class="overlay-logo">ASCEND</div></div>
+<div id="scroll-progress"></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">ASCEND</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li class="has-dropdown">
+      <a href="#">Programs</a>
+      <div class="nav-dropdown">
+        <a href="programs/competitions.html">Business Competitions <span class="dd-num">01</span></a>
+        <a href="programs/conferences.html">International Conferences <span class="dd-num">02</span></a>
+        <a href="programs/spirit-store.html">Spirit Store <span class="dd-num">03</span></a>
+        <a href="programs/leadership.html">Leadership Development <span class="dd-num">04</span></a>
+      </div>
+    </li>
+    <li><a href="partners.html" class="active">Partners</a></li>
+    <li><a href="join.html">Join</a></li>
+  </ul>
+  <a class="nav-cta" href="join.html">Apply Now</a>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="about.html">About</a>
+  <a href="programs/competitions.html">Competitions</a>
+  <a href="programs/conferences.html">Conferences</a>
+  <a href="programs/spirit-store.html">Spirit Store</a>
+  <a href="programs/leadership.html">Leadership</a>
+  <div class="mobile-divider"></div>
+  <a href="partners.html">Partners</a>
+  <a href="join.html" class="mobile-cta">Apply Now</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <canvas class="hero-canvas"></canvas>
+  <div class="hero-content" style="animation: fadeUp 1s 0.3s both">
+    <div class="hero-tag">Our Partners</div>
+    <h1>Backed by<br>the <em>world's best.</em></h1>
+    <p class="hero-sub">ASCEND's partners aren't logos on a sponsorship deck. They are organizations that believe in the next generation — and invest in developing it.</p>
+  </div>
+  <div class="hero-scroll"><span class="scroll-line"></span>Scroll to explore</div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Samsung</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Aramco</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Manchester City FC</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Fairtrade</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Bitexco</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">FURSYS</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Samsung</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Aramco</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Manchester City FC</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Fairtrade</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Bitexco</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">FURSYS</span><span class="ticker-dot"> · </span>
+  </div>
+</div>
+
+<!-- PARTNERS GRID -->
+<section id="partners-main">
+  <div class="partners-intro-row reveal">
+    <div>
+      <div class="section-label">Current Partners</div>
+      <h2>Six organizations.<br><em>One shared belief.</em></h2>
+    </div>
+    <p class="partners-lead">Every ASCEND partner shares a common conviction: that investing in student development today builds the talent pipeline of tomorrow. These are organizations that don't just talk about the future — they fund it. Hover each card to learn more.</p>
+  </div>
+  <div class="partner-full-grid reveal">
+    <div class="partner-full-cell">
+      <div class="partner-badge">Founding Partner</div>
+      <div class="partner-full-name">Samsung</div>
+      <div class="partner-full-industry">Technology &amp; Innovation</div>
+      <p class="partner-full-desc">As one of the world's most influential technology conglomerates, Samsung brings its global expertise in innovation and product development to ASCEND competitions and conferences, providing case studies, mentors, and real-world briefs for student participants.</p>
+    </div>
+    <div class="partner-full-cell">
+      <div class="partner-badge">Founding Partner</div>
+      <div class="partner-full-name">Aramco</div>
+      <div class="partner-full-industry">Energy &amp; Industry</div>
+      <p class="partner-full-desc">One of the world's largest energy companies, Aramco partners with ASCEND to expose students to the complexities of global industry, sustainability challenges, and large-scale operations — providing unique case study material and leadership insights.</p>
+    </div>
+    <div class="partner-full-cell">
+      <div class="partner-badge">Strategic Partner</div>
+      <div class="partner-full-name">Manchester City FC</div>
+      <div class="partner-full-industry">Sport &amp; Global Brand</div>
+      <p class="partner-full-desc">Manchester City FC brings the lens of elite sport to ASCEND — demonstrating how world-class branding, commercial strategy, and global audience-building work in practice. A unique perspective on performance culture and international business.</p>
+    </div>
+    <div class="partner-full-cell">
+      <div class="partner-badge">Strategic Partner</div>
+      <div class="partner-full-name">Fairtrade</div>
+      <div class="partner-full-industry">Ethics &amp; Sustainability</div>
+      <p class="partner-full-desc">Fairtrade's partnership grounds ASCEND's commercial programs in ethical thinking. Students explore supply chain integrity, fair trade economics, and the business case for sustainability — critical skills for any future global leader.</p>
+    </div>
+    <div class="partner-full-cell">
+      <div class="partner-badge">Community Partner</div>
+      <div class="partner-full-name">Bitexco</div>
+      <div class="partner-full-industry">Real Estate &amp; Development</div>
+      <p class="partner-full-desc">Bitexco, a leading Vietnamese conglomerate with landmark real estate developments across Asia, brings regional business expertise and a long-term view on development, infrastructure, and emerging market strategy to ASCEND's curriculum.</p>
+    </div>
+    <div class="partner-full-cell">
+      <div class="partner-badge">Community Partner</div>
+      <div class="partner-full-name">FURSYS</div>
+      <div class="partner-full-industry">Design &amp; Workspace</div>
+      <p class="partner-full-desc">FURSYS shapes the physical environments where ASCEND operates — from Spirit Store setups to conference spaces. Their expertise in design thinking and workspace strategy also contributes to ASCEND's broader programming on environment and culture.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIERS -->
+<section id="tiers">
+  <div class="tiers-header reveal">
+    <div class="section-label">Partnership Tiers</div>
+    <h2>Built for<br><em>every ambition.</em></h2>
+  </div>
+  <div class="tiers-grid reveal">
+    <div class="tier-card">
+      <span class="tier-rank">01</span>
+      <div class="tier-name"><em>Founding</em> Partner</div>
+      <p class="tier-desc">Maximum visibility and influence across all ASCEND programs, conferences, and media. Reserved for organizations that shape ASCEND's strategic direction.</p>
+      <ul class="tier-perks">
+        <li>Naming rights on major competitions</li>
+        <li>Keynote presence at all conferences</li>
+        <li>Executive board advisory seat</li>
+        <li>Co-branded student programs</li>
+        <li>Priority case study placement</li>
+      </ul>
+    </div>
+    <div class="tier-card">
+      <span class="tier-rank">02</span>
+      <div class="tier-name"><em>Strategic</em> Partner</div>
+      <p class="tier-desc">Significant presence at ASCEND conferences and competition events. Ideal for organizations seeking deep engagement with student talent across multiple markets.</p>
+      <ul class="tier-perks">
+        <li>Conference stage presence</li>
+        <li>Sponsored competition category</li>
+        <li>Workshop hosting rights</li>
+        <li>Branded networking sessions</li>
+        <li>Annual talent pipeline access</li>
+      </ul>
+    </div>
+    <div class="tier-card">
+      <span class="tier-rank">03</span>
+      <div class="tier-name"><em>Community</em> Partner</div>
+      <p class="tier-desc">Focused engagement with ASCEND's local programming and Spirit Store network. Ideal for regional organizations committed to student development in specific markets.</p>
+      <ul class="tier-perks">
+        <li>Regional event presence</li>
+        <li>Spirit Store integration</li>
+        <li>Member school visibility</li>
+        <li>Annual impact report inclusion</li>
+        <li>Digital brand placement</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="impact-layout">
+    <div class="impact-text reveal-l">
+      <div class="section-label">Partnership Impact</div>
+      <h2>Why the world's<br>best <em>choose ASCEND.</em></h2>
+      <p>ASCEND partners gain access to a uniquely high-caliber pipeline of future business talent — students who have already demonstrated initiative, strategic thinking, and competitive drive.</p>
+      <p>Beyond talent, partners benefit from authentic brand presence in international school communities across multiple countries, and association with an organization built on excellence and ambition.</p>
+      <a class="btn-ghost" href="join.html">Become a partner →</a>
+    </div>
+    <div class="impact-stats reveal-r">
+      <div class="stat-box"><div class="stat-num" data-count="6" data-suffix="+">6+</div><div class="stat-label">Active Partners</div></div>
+      <div class="stat-box"><div class="stat-num" data-count="3">3</div><div class="stat-label">Partnership Tiers</div></div>
+      <div class="stat-box"><div class="stat-num" data-count="3">3</div><div class="stat-label">Continents Reached</div></div>
+      <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Growth Ahead</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER CTA -->
+<section id="partner-cta">
+  <div class="section-label" style="justify-content:center">Get Involved</div>
+  <h2>Shape the <em>next generation.</em></h2>
+  <p>ASCEND is actively growing its partner network. If your organization is committed to developing future business leaders, we'd like to talk.</p>
+  <div style="display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap;">
+    <a class="btn-primary" href="mailto:partners@ascendorg.com" data-magnetic>Partner With Us</a>
+    <a class="btn-outline" href="join.html">Learn About Membership</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">ASCEND</a>
+  <ul class="footer-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="programs/competitions.html">Programs</a></li>
+    <li><a href="partners.html">Partners</a></li>
+    <li><a href="join.html">Join</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 ASCEND. All rights reserved.</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

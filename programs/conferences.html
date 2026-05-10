@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>International Conferences — ASCEND</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<style>
+  /* ─── WHAT TO EXPECT ─── */
+  #expect { padding: 7rem 5%; background: var(--navy-mid); }
+  .expect-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
+  .expect-lead { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; }
+  .expect-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5px; background: var(--border); }
+  .expect-card {
+    background: var(--navy-mid); padding: 3rem 2.5rem;
+    position: relative; overflow: hidden; transition: background 0.4s;
+  }
+  .expect-card:hover { background: var(--navy-light); }
+  .expect-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1.5px; background: var(--gold);
+    transition: width 0.5s var(--ease);
+  }
+  .expect-card:hover::after { width: 100%; }
+  .expect-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 300;
+    color: rgba(198,169,107,0.07); position: absolute; top: 0.8rem; right: 1.2rem;
+    line-height: 1; user-select: none; transition: color 0.4s;
+  }
+  .expect-card:hover .expect-num { color: rgba(198,169,107,0.14); }
+  .expect-icon { width: 36px; height: 36px; border: 0.5px solid var(--gold-dim); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
+  .expect-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .expect-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--white); margin-bottom: 0.8rem; }
+  .expect-desc { font-size: 0.9rem; color: var(--cream-dim); line-height: 1.8; }
+
+  /* ─── AGENDA ─── */
+  #agenda { padding: 7rem 5%; }
+  .agenda-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
+  .agenda-intro p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-top: 1rem; }
+  .agenda-days { }
+  .day-block { margin-bottom: 3rem; }
+  .day-block:last-child { margin-bottom: 0; }
+  .day-label {
+    font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .day-label::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+  .agenda-item {
+    display: grid; grid-template-columns: 90px 1fr;
+    gap: 1.5rem; padding: 1rem 0; border-bottom: 0.5px solid var(--border);
+  }
+  .agenda-item:last-child { border-bottom: none; }
+  .agenda-time { font-size: 0.78rem; color: var(--gold-dim); letter-spacing: 0.06em; padding-top: 0.15rem; }
+  .agenda-name { font-size: 0.92rem; color: var(--cream); margin-bottom: 0.25rem; }
+  .agenda-detail { font-size: 0.8rem; color: var(--cream-dim); line-height: 1.7; }
+
+  /* ─── LOCATIONS ─── */
+  #locations { background: var(--navy-mid); padding: 7rem 5%; }
+  .locations-header { margin-bottom: 4rem; }
+  .locations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); }
+  .location-card {
+    background: var(--navy-mid); padding: 3rem 2.5rem;
+    transition: background 0.4s; position: relative; overflow: hidden;
+  }
+  .location-card:hover { background: var(--navy-light); }
+  .location-badge {
+    display: inline-block; margin-bottom: 1.5rem;
+    padding: 0.28rem 0.7rem; border: 0.5px solid var(--border);
+    font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dim);
+  }
+  .location-city { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--white); margin-bottom: 0.3rem; }
+  .location-country { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 1.2rem; }
+  .location-note { font-size: 0.85rem; color: var(--cream-dim); line-height: 1.8; }
+
+  /* ─── STATS ─── */
+  #conf-stats { padding: 7rem 5%; }
+  .conf-stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: var(--border); }
+
+  /* ─── CTA ─── */
+  #conf-cta { background: var(--navy-mid); padding: 8rem 5%; text-align: center; }
+  #conf-cta h2 { margin-bottom: 1rem; }
+  #conf-cta p { color: var(--cream-dim); max-width: 520px; margin: 0 auto 3rem; font-size: 1rem; line-height: 1.85; }
+
+  @media (max-width: 900px) {
+    .expect-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .agenda-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .locations-grid { grid-template-columns: 1fr; }
+    .conf-stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div id="site-overlay"><div class="overlay-logo">ASCEND</div></div>
+<div id="scroll-progress"></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">ASCEND</a>
+  <ul class="nav-links">
+    <li><a href="../about.html">About</a></li>
+    <li class="has-dropdown">
+      <a href="#" class="active">Programs</a>
+      <div class="nav-dropdown">
+        <a href="competitions.html">Business Competitions <span class="dd-num">01</span></a>
+        <a href="conferences.html" class="active">International Conferences <span class="dd-num">02</span></a>
+        <a href="spirit-store.html">Spirit Store <span class="dd-num">03</span></a>
+        <a href="leadership.html">Leadership Development <span class="dd-num">04</span></a>
+      </div>
+    </li>
+    <li><a href="../partners.html">Partners</a></li>
+    <li><a href="../join.html">Join</a></li>
+  </ul>
+  <a class="nav-cta" href="../join.html">Apply Now</a>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="../about.html">About</a>
+  <a href="competitions.html">Competitions</a>
+  <a href="conferences.html">Conferences</a>
+  <a href="spirit-store.html">Spirit Store</a>
+  <a href="leadership.html">Leadership</a>
+  <div class="mobile-divider"></div>
+  <a href="../partners.html">Partners</a>
+  <a href="../join.html" class="mobile-cta">Apply Now</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <canvas class="hero-canvas"></canvas>
+  <div class="hero-content" style="animation: fadeUp 1s 0.3s both">
+    <div class="hero-tag">Program 02 — International Conferences</div>
+    <h1>Where the<br><em>world meets.</em></h1>
+    <p class="hero-sub">Once a year, ASCEND brings together the brightest student minds from member schools across the globe for three days of competition, learning, and connection that no classroom can replicate.</p>
+    <div style="display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:0.5rem;">
+      <a class="btn-primary" href="#agenda" data-magnetic>View the Agenda</a>
+      <a class="btn-ghost" href="../join.html">Register Your School →</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span class="scroll-line"></span>Scroll to explore</div>
+</section>
+
+<!-- WHAT TO EXPECT -->
+<section id="expect">
+  <div class="expect-header reveal">
+    <div>
+      <div class="section-label">Conference Experience</div>
+      <h2>Three days.<br><em>Unforgettable.</em></h2>
+    </div>
+    <p class="expect-lead">The ASCEND International Conference is the centrepiece of the organization's calendar — a fully immersive event that combines the intensity of competition finals with the energy of a global gathering of ambitious students.</p>
+  </div>
+  <div class="expect-grid reveal">
+    <div class="expect-card">
+      <span class="expect-num">01</span>
+      <div class="expect-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+      <div class="expect-title">Competition Finals</div>
+      <p class="expect-desc">All six competition categories hold their International Finals live at the conference. Students who have advanced through the Preliminary and Regional rounds compete in front of industry judges and a live audience of their peers.</p>
+    </div>
+    <div class="expect-card">
+      <span class="expect-num">02</span>
+      <div class="expect-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+      <div class="expect-title">Keynote Speakers</div>
+      <p class="expect-desc">Executives and leaders from ASCEND's partner organizations take the main stage to share insights on industry trends, career paths, and the skills that define success in the modern business world. Candid, honest, and directly relevant.</p>
+    </div>
+    <div class="expect-card">
+      <span class="expect-num">03</span>
+      <div class="expect-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></div>
+      <div class="expect-title">Industry Workshops</div>
+      <p class="expect-desc">Hands-on sessions led by partner organization professionals covering strategy, marketing, finance, sustainability, and more. Students leave with practical skills, real frameworks, and direct exposure to how the world's best organizations operate.</p>
+    </div>
+    <div class="expect-card">
+      <span class="expect-num">04</span>
+      <div class="expect-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
+      <div class="expect-title">Global Networking</div>
+      <p class="expect-desc">Structured and unstructured networking opportunities connect students across schools, countries, and cultures. These are relationships built on shared ambition — the kind that last long beyond ASCEND and into professional life.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AGENDA -->
+<section id="agenda">
+  <div class="agenda-layout">
+    <div class="agenda-intro reveal-l">
+      <div class="section-label">Conference Agenda</div>
+      <h2>Three days,<br><em>designed</em> with intent.</h2>
+      <p>Every minute of the ASCEND conference is intentional. The agenda balances high-pressure competition with genuine learning and real human connection — because the best leaders know when to perform and when to listen.</p>
+    </div>
+    <div class="agenda-days reveal-r">
+      <div class="day-block">
+        <div class="day-label">Day One — Arrival &amp; Opening</div>
+        <div class="agenda-item">
+          <span class="agenda-time">09:00</span>
+          <div><div class="agenda-name">Delegate Registration</div><p class="agenda-detail">Check-in, welcome packs, and school introductions. Delegates connect with peers from other member schools.</p></div>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-time">14:00</span>
+          <div><div class="agenda-name">Opening Ceremony</div><p class="agenda-detail">ASCEND leadership addresses delegates. Partner executives share opening remarks. The competition season officially begins.</p></div>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-time">16:00</span>
+          <div><div class="agenda-name">Industry Workshop — Session I</div><p class="agenda-detail">First partner-led workshop. All delegates participate in groups rotating across topics.</p></div>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-time">19:30</span>
+          <div><div class="agenda-name">Welcome Dinner &amp; Networking</div><p class="agenda-detail">Formal dinner with structured networking. Delegates seated across school lines to encourage cross-school connection.</p></div>
+        </div>
+      </div>
+      <div class="day-block">
+        <div class="day-label">Day Two — Competition &amp; Learning</div>
+        <div class="agenda-item">
+          <span class="agenda-time">08:30</span>
+          <div><div class="agenda-name">Competition Finals — Morning</div><p class="agenda-detail">Case Study Analysis and Entrepreneurship Pitch finals. Industry judges. Live audience.</p></div>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-time">12:30</span>
+          <div><div class="agenda-name">Keynote Speaker — Partner Executive</div><p class="agenda-detail">Main stage address from a senior leader at one of ASCEND's founding partner organizations.</p></div>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-time">14:00</span>
+          <div><div class="agenda-name">Competition Finals — Afternoon</div><p class="agenda-detail">Marketing Strategy, Finance &amp; Investment, and Sustainability Challenge finals.</p></div>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-time">17:30</span>
+          <div><div class="agenda-name">Industry Workshop — Session II</div><p class="agenda-detail">Second partner-led workshop with different facilitators and topic areas.</p></div>
+        </div>
+      </div>
+      <div class="day-block">
+        <div class="day-label">Day Three — Finals &amp; Awards</div>
+        <div class="agenda-item">
+          <span class="agenda-time">09:00</span>
+          <div><div class="agenda-name">International Trade Finals</div><p class="agenda-detail">Final competition category. Live negotiation simulations judged by international business professionals.</p></div>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-time">12:00</span>
+          <div><div class="agenda-name">Closing Keynote &amp; Reflection</div><p class="agenda-detail">A final address from ASCEND leadership. Delegates reflect on the three-day experience together.</p></div>
+        </div>
+        <div class="agenda-item">
+          <span class="agenda-time">18:00</span>
+          <div><div class="agenda-name">Awards Ceremony &amp; Gala</div><p class="agenda-detail">Black-tie awards ceremony. Category winners announced. ASCEND's most memorable evening of the year.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<section id="locations">
+  <div class="locations-header reveal">
+    <div class="section-label">Conference Locations</div>
+    <h2>The world is<br><em>our campus.</em></h2>
+  </div>
+  <div class="locations-grid reveal">
+    <div class="location-card">
+      <div class="location-badge">Inaugural Conference</div>
+      <div class="location-city">Seoul</div>
+      <div class="location-country">South Korea</div>
+      <p class="location-note">ASCEND's inaugural conference was held in Seoul — home to Samsung, one of ASCEND's founding partners. A city that embodies the intersection of technology, ambition, and global commerce.</p>
+    </div>
+    <div class="location-card">
+      <div class="location-badge">Previous Conference</div>
+      <div class="location-city">Dubai</div>
+      <div class="location-country">United Arab Emirates</div>
+      <p class="location-note">A global hub for trade and business, Dubai brought an unmatched energy to the ASCEND conference. Delegates experienced a city built on bold ambition — mirroring ASCEND's own spirit.</p>
+    </div>
+    <div class="location-card">
+      <div class="location-badge">Upcoming — 2025</div>
+      <div class="location-city">To Be Announced</div>
+      <div class="location-country">Location Reveal Coming Soon</div>
+      <p class="location-note">The 2025 ASCEND International Conference location will be announced to member schools ahead of the registration window. Stay tuned for details through your school's ASCEND chapter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="conf-stats">
+  <div class="section-label reveal">Conference by Numbers</div>
+  <div class="conf-stats-row reveal" data-delay="100">
+    <div class="stat-box"><div class="stat-num" data-count="3">3</div><div class="stat-label">Conference Days</div></div>
+    <div class="stat-box"><div class="stat-num" data-count="6">6</div><div class="stat-label">Competition Finals</div></div>
+    <div class="stat-box"><div class="stat-num" data-count="6" data-suffix="+">6+</div><div class="stat-label">Partner Speakers</div></div>
+    <div class="stat-box"><div class="stat-num" data-count="1">1</div><div class="stat-label">Awards Gala</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="conf-cta">
+  <div class="section-label" style="justify-content:center">Attend the Conference</div>
+  <h2>Earn your place<br><em>on the global stage.</em></h2>
+  <p>Conference attendance is available to all registered member school students. To secure your school's delegation, apply for membership and begin the competition season.</p>
+  <div style="display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;">
+    <a class="btn-primary" href="../join.html" data-magnetic>Apply as a Member School</a>
+    <a class="btn-outline" href="competitions.html">View Competitions →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">ASCEND</a>
+  <ul class="footer-links">
+    <li><a href="../about.html">About</a></li>
+    <li><a href="competitions.html">Programs</a></li>
+    <li><a href="../partners.html">Partners</a></li>
+    <li><a href="../join.html">Join</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 ASCEND. All rights reserved.</div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

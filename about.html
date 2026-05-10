@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — ASCEND</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 5%; position: relative; overflow: hidden;
+    background: radial-gradient(ellipse 70% 70% at 85% 40%, rgba(198,169,107,0.05) 0%, transparent 65%);
+  }
+
+  /* ─── MISSION ─── */
+  #mission {
+    background: var(--navy-mid);
+    padding: 7rem 5%;
+    text-align: center;
+  }
+  .mission-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    max-width: 860px;
+    margin: 0 auto 2rem;
+    line-height: 1.4;
+  }
+  .mission-quote em { color: var(--gold); font-style: normal; }
+  .mission-sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+
+  /* ─── TIMELINE ─── */
+  #timeline-section { padding: 7rem 5%; }
+  .timeline-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .timeline-intro p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-top: 1rem; }
+
+  /* ─── VALUES ─── */
+  #values { background: var(--navy-mid); }
+  .values-header {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: end; margin-bottom: 4rem;
+  }
+  .values-intro { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; }
+  .values-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px; background: var(--border);
+  }
+  .value-card {
+    background: var(--navy-mid);
+    padding: 3rem 2.5rem;
+    transition: background 0.4s;
+  }
+  .value-card:hover { background: var(--navy-light); }
+  .value-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem; letter-spacing: 0.2em;
+    color: var(--gold); margin-bottom: 1.2rem;
+  }
+  .value-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300;
+    color: var(--white); margin-bottom: 0.8rem;
+  }
+  .value-title em { font-style: italic; color: var(--gold); }
+  .value-text { color: var(--cream-dim); font-size: 0.9rem; line-height: 1.8; }
+
+  /* ─── STATS ─── */
+  #stats { padding: 7rem 5%; }
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px; background: var(--border);
+  }
+
+  /* ─── CTA ─── */
+  #about-cta {
+    background: var(--navy-mid);
+    padding: 7rem 5%;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .cta-text h2 { margin-bottom: 1rem; }
+  .cta-text p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-bottom: 2rem; }
+  .cta-visual {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5px; background: var(--border);
+  }
+  .cta-cell {
+    background: var(--navy-mid);
+    padding: 2rem 1.5rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .cta-cell-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.4rem; }
+  .cta-cell-val { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--white); }
+
+  @media (max-width: 900px) {
+    .timeline-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .values-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .values-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    #about-cta { grid-template-columns: 1fr; gap: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="site-overlay"><div class="overlay-logo">ASCEND</div></div>
+<div id="scroll-progress"></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">ASCEND</a>
+  <ul class="nav-links">
+    <li><a href="about.html" class="active">About</a></li>
+    <li class="has-dropdown">
+      <a href="#">Programs</a>
+      <div class="nav-dropdown">
+        <a href="programs/competitions.html">Business Competitions <span class="dd-num">01</span></a>
+        <a href="programs/conferences.html">International Conferences <span class="dd-num">02</span></a>
+        <a href="programs/spirit-store.html">Spirit Store <span class="dd-num">03</span></a>
+        <a href="programs/leadership.html">Leadership Development <span class="dd-num">04</span></a>
+      </div>
+    </li>
+    <li><a href="partners.html">Partners</a></li>
+    <li><a href="join.html">Join</a></li>
+  </ul>
+  <a class="nav-cta" href="join.html">Apply Now</a>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="about.html">About</a>
+  <a href="programs/competitions.html">Competitions</a>
+  <a href="programs/conferences.html">Conferences</a>
+  <a href="programs/spirit-store.html">Spirit Store</a>
+  <a href="programs/leadership.html">Leadership</a>
+  <div class="mobile-divider"></div>
+  <a href="partners.html">Partners</a>
+  <a href="join.html" class="mobile-cta">Apply Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="page-hero">
+  <canvas class="hero-canvas"></canvas>
+  <div class="hero-content" style="animation: fadeUp 1s 0.3s both">
+    <div class="hero-tag">Our Story</div>
+    <h1>Born from<br><em>adversity.</em></h1>
+    <p class="hero-sub">ASCEND didn't emerge from a boardroom strategy session. It was forged in the wake of a crisis — and shaped by the students who refused to accept defeat.</p>
+  </div>
+  <div class="hero-scroll"><span class="scroll-line"></span>Scroll to explore</div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="section-label" style="justify-content:center; margin-bottom:2.5rem">Our Mission</div>
+  <p class="mission-quote reveal">
+    "To develop the next generation of <em>globally-minded, commercially capable leaders</em> through competition, collaboration, and real-world experience."
+  </p>
+  <p class="mission-sub reveal" data-delay="200">— ASCEND Mission Statement</p>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline-section">
+  <div class="timeline-layout">
+    <div class="timeline-intro reveal-l">
+      <div class="section-label">How We Got Here</div>
+      <h2>The <em>origin</em><br>of something greater.</h2>
+      <p>Every great institution has a founding story. Ours begins not with a vision statement, but with a door being slammed shut — and students who chose to build their own.</p>
+    </div>
+    <div class="timeline reveal-r">
+      <div class="timeline-item reveal" data-delay="0">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2023 — The Crisis</div>
+        <div class="timeline-title">DECA bans international chapters</div>
+        <p class="timeline-text">Without warning, DECA — the global business education organization — revoked all international chapter memberships. Hundreds of schools across Asia, Europe, and the Middle East were left without a program, a competition structure, or a community.</p>
+      </div>
+      <div class="timeline-item reveal" data-delay="100">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Late 2023 — The Response</div>
+        <div class="timeline-title">Founding members convene</div>
+        <p class="timeline-text">Rather than return to local programs or simply accept the loss, a group of school leaders and student executives from three continents began meeting virtually. The question wasn't whether to rebuild — it was how to build something better.</p>
+      </div>
+      <div class="timeline-item reveal" data-delay="200">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Q1 2024 — The Foundation</div>
+        <div class="timeline-title">ASCEND is officially founded</div>
+        <p class="timeline-text">The Association of Student Commerce, Entrepreneurship, and New Developing Leaders is established as a fully independent international organization. ASCEND is built from the ground up for international schools — not adapted from a domestic model.</p>
+      </div>
+      <div class="timeline-item reveal" data-delay="300">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Q2 2024 — First Partnerships</div>
+        <div class="timeline-title">Samsung &amp; Aramco become founding partners</div>
+        <p class="timeline-text">Within months of founding, ASCEND secures its first major corporate partnerships. Samsung and Aramco recognize the organization's potential to develop future business talent — and the credibility of an independent, international platform.</p>
+      </div>
+      <div class="timeline-item reveal" data-delay="400">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Q3–Q4 2024 — Expansion</div>
+        <div class="timeline-title">Four more partners. First conference.</div>
+        <p class="timeline-text">Manchester City FC, Fairtrade, Bitexco, and FURSYS join the ASCEND partner network. The first ASCEND International Conference takes place, bringing together member schools across multiple countries for the inaugural competition season.</p>
+      </div>
+      <div class="timeline-item reveal" data-delay="500">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2025 — Present</div>
+        <div class="timeline-title">Global expansion continues</div>
+        <p class="timeline-text">ASCEND continues to onboard member schools across Asia, Europe, the Middle East, and beyond. The organization is actively growing its competition categories, conference programming, and partner network — with no ceiling in sight.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VALUES -->
+<section id="values">
+  <div class="values-header reveal">
+    <div>
+      <div class="section-label">What We Stand For</div>
+      <h2>Four values.<br><em>One character.</em></h2>
+    </div>
+    <p class="values-intro">Our values aren't wall decorations. They show up in how we run competitions, how we treat partner organizations, and how we develop student leaders. They are ASCEND's operating system.</p>
+  </div>
+  <div class="values-grid reveal">
+    <div class="value-card">
+      <div class="value-num">01</div>
+      <div class="value-title"><em>Excellence</em></div>
+      <p class="value-text">We hold ourselves and each other to the highest standard — in preparation, presentation, and performance. Mediocrity is not an option when you're competing on a global stage.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">02</div>
+      <div class="value-title"><em>Integrity</em></div>
+      <p class="value-text">We compete and collaborate with complete transparency and honesty. The trust of our partner organizations, member schools, and students depends on a foundation we never compromise.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">03</div>
+      <div class="value-title"><em>Innovation</em></div>
+      <p class="value-text">ASCEND was built because someone dared to do things differently. We carry that spirit forward — always asking how we can improve our programs, surprise our partners, and raise the bar for what's possible.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">04</div>
+      <div class="value-title"><em>Impact</em></div>
+      <p class="value-text">We measure success not in registrations but in outcomes. Did students get better? Did schools grow stronger? Did our partners see real value? Impact is the only metric that matters.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="section-label reveal">By the Numbers</div>
+  <div class="stats-row reveal" data-delay="100">
+    <div class="stat-box"><div class="stat-num" data-count="6" data-suffix="+">6+</div><div class="stat-label">Corporate Partners</div></div>
+    <div class="stat-box"><div class="stat-num" data-count="4">4</div><div class="stat-label">Core Programs</div></div>
+    <div class="stat-box"><div class="stat-num" data-count="3">3</div><div class="stat-label">Continents Active</div></div>
+    <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Potential Reached</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="about-cta">
+  <div class="cta-text reveal-l">
+    <div class="section-label">Join ASCEND</div>
+    <h2>Be part of the<br><em>next chapter.</em></h2>
+    <p>Whether you're a school administrator, a student leader, or a corporate partner — there's a place for you in the ASCEND story. The organization is growing, and the best moments are still ahead.</p>
+    <div style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+      <a class="btn-primary" href="join.html" data-magnetic>Apply Now</a>
+      <a class="btn-outline" href="programs/competitions.html">View Programs</a>
+    </div>
+  </div>
+  <div class="cta-visual reveal-r">
+    <div class="cta-cell"><div class="cta-cell-label">Organization Type</div><div class="cta-cell-val">Independent, International</div></div>
+    <div class="cta-cell"><div class="cta-cell-label">Founded</div><div class="cta-cell-val">2024</div></div>
+    <div class="cta-cell"><div class="cta-cell-label">Eligibility</div><div class="cta-cell-val">International Schools</div></div>
+    <div class="cta-cell"><div class="cta-cell-label">HQ Region</div><div class="cta-cell-val">Global</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">ASCEND</a>
+  <ul class="footer-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="programs/competitions.html">Programs</a></li>
+    <li><a href="partners.html">Partners</a></li>
+    <li><a href="join.html">Join</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 ASCEND. All rights reserved.</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
