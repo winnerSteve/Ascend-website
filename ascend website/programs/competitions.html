@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Competitions — ASCEND</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<style>
+  /* ─── CATEGORIES ─── */
+  #categories { padding: 7rem 5%; background: var(--navy-mid); }
+  .categories-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
+  .categories-lead { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; }
+  .cat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px; background: var(--border);
+  }
+  .cat-card {
+    background: var(--navy-mid); padding: 2.8rem 2.5rem;
+    position: relative; overflow: hidden;
+    transition: background 0.4s;
+    cursor: default;
+  }
+  .cat-card:hover { background: var(--navy-light); }
+  .cat-card-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300;
+    color: rgba(198,169,107,0.07); position: absolute; top: 0.5rem; right: 1rem;
+    line-height: 1; user-select: none; transition: color 0.4s;
+  }
+  .cat-card:hover .cat-card-num { color: rgba(198,169,107,0.14); }
+  .cat-icon {
+    width: 34px; height: 34px; border: 0.5px solid var(--gold-dim);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 1.4rem;
+  }
+  .cat-icon svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .cat-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--white); margin-bottom: 0.6rem; }
+  .cat-desc { font-size: 0.85rem; color: var(--cream-dim); line-height: 1.8; }
+  .cat-tag {
+    display: inline-block; margin-top: 1.2rem;
+    padding: 0.25rem 0.6rem; border: 0.5px solid var(--border);
+    font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim);
+  }
+
+  /* ─── FORMAT ─── */
+  #format { padding: 7rem 5%; }
+  .format-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .format-intro p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-top: 1rem; }
+  .rounds { margin-top: 0; }
+  .round-item {
+    display: grid; grid-template-columns: 60px 1fr;
+    gap: 1.5rem; padding: 2rem 0; border-bottom: 0.5px solid var(--border);
+    transition: background 0.3s;
+  }
+  .round-item:last-child { border-bottom: none; }
+  .round-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300;
+    color: var(--gold); line-height: 1; padding-top: 0.2rem;
+  }
+  .round-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--white); margin-bottom: 0.4rem; }
+  .round-desc { font-size: 0.85rem; color: var(--cream-dim); line-height: 1.8; }
+
+  /* ─── CALENDAR ─── */
+  #calendar { background: var(--navy-mid); padding: 7rem 5%; }
+  .calendar-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px; background: var(--border); margin-top: 3rem;
+  }
+  .cal-item { background: var(--navy-mid); padding: 2.5rem 2rem; transition: background 0.3s; }
+  .cal-item:hover { background: var(--navy-light); }
+  .cal-month { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .cal-event { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--white); margin-bottom: 0.5rem; }
+  .cal-detail { font-size: 0.82rem; color: var(--cream-dim); line-height: 1.7; }
+
+  /* ─── CTA ─── */
+  #comp-cta { padding: 8rem 5%; text-align: center; }
+  #comp-cta h2 { margin-bottom: 1rem; }
+  #comp-cta p { color: var(--cream-dim); max-width: 500px; margin: 0 auto 3rem; font-size: 1rem; line-height: 1.85; }
+
+  @media (max-width: 900px) {
+    .categories-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .format-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .cat-grid { grid-template-columns: 1fr; }
+    .calendar-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="site-overlay"><div class="overlay-logo">ASCEND</div></div>
+<div id="scroll-progress"></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">ASCEND</a>
+  <ul class="nav-links">
+    <li><a href="../about.html">About</a></li>
+    <li class="has-dropdown">
+      <a href="#" class="active">Programs</a>
+      <div class="nav-dropdown">
+        <a href="competitions.html" class="active">Business Competitions <span class="dd-num">01</span></a>
+        <a href="conferences.html">International Conferences <span class="dd-num">02</span></a>
+        <a href="spirit-store.html">Spirit Store <span class="dd-num">03</span></a>
+        <a href="leadership.html">Leadership Development <span class="dd-num">04</span></a>
+      </div>
+    </li>
+    <li><a href="../partners.html">Partners</a></li>
+    <li><a href="../join.html">Join</a></li>
+  </ul>
+  <a class="nav-cta" href="../join.html">Apply Now</a>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="../about.html">About</a>
+  <a href="competitions.html">Competitions</a>
+  <a href="conferences.html">Conferences</a>
+  <a href="spirit-store.html">Spirit Store</a>
+  <a href="leadership.html">Leadership</a>
+  <div class="mobile-divider"></div>
+  <a href="../partners.html">Partners</a>
+  <a href="../join.html" class="mobile-cta">Apply Now</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <canvas class="hero-canvas"></canvas>
+  <div class="hero-content" style="animation: fadeUp 1s 0.3s both">
+    <div class="hero-tag">Program 01 — Business Competitions</div>
+    <h1>Compete on the<br><em>world stage.</em></h1>
+    <p class="hero-sub">Where strategy meets pressure. ASCEND competitions push students beyond the classroom — into the arena of real business thinking, high-stakes presentations, and international recognition.</p>
+    <div style="display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:0.5rem;">
+      <a class="btn-primary" href="#categories" data-magnetic>View Categories</a>
+      <a class="btn-ghost" href="../join.html">Register Your School →</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span class="scroll-line"></span>Scroll to explore</div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="categories-header reveal">
+    <div>
+      <div class="section-label">Competition Categories</div>
+      <h2>Six arenas.<br><em>One champion.</em></h2>
+    </div>
+    <p class="categories-lead">Each ASCEND competition category is designed in partnership with industry leaders to reflect real challenges faced by today's businesses. Students don't solve hypothetical problems — they tackle real ones.</p>
+  </div>
+  <div class="cat-grid reveal">
+    <div class="cat-card" data-tilt>
+      <span class="cat-card-num">01</span>
+      <div class="cat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="cat-title">Case Study Analysis</div>
+      <p class="cat-desc">Teams receive a real business case 24 hours before presentation. They must analyse the situation, identify the core problem, and present a data-backed recommendation to a panel of industry judges.</p>
+      <span class="cat-tag">Teams of 2–4</span>
+    </div>
+    <div class="cat-card" data-tilt>
+      <span class="cat-card-num">02</span>
+      <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <div class="cat-title">Entrepreneurship Pitch</div>
+      <p class="cat-desc">Students present an original business idea to a live panel including ASCEND partner representatives. Judged on innovation, viability, financial thinking, and presentation delivery.</p>
+      <span class="cat-tag">Individual or Teams of 2</span>
+    </div>
+    <div class="cat-card" data-tilt>
+      <span class="cat-card-num">03</span>
+      <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="cat-title">Marketing Strategy</div>
+      <p class="cat-desc">Teams develop a full marketing campaign for a brief provided by one of ASCEND's partner organizations. Includes brand strategy, channel planning, creative direction, and budget allocation.</p>
+      <span class="cat-tag">Teams of 3–4</span>
+    </div>
+    <div class="cat-card" data-tilt>
+      <span class="cat-card-num">04</span>
+      <div class="cat-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="cat-title">Finance &amp; Investment</div>
+      <p class="cat-desc">Students analyse financial statements, build investment theses, and pitch portfolio decisions to a panel of finance professionals. Tests modelling ability, commercial judgement, and communication skills.</p>
+      <span class="cat-tag">Individual</span>
+    </div>
+    <div class="cat-card" data-tilt>
+      <span class="cat-card-num">05</span>
+      <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="cat-title">Sustainability Challenge</div>
+      <p class="cat-desc">In partnership with Fairtrade, teams develop a sustainability strategy for a real-world scenario. Judged on environmental impact, commercial viability, and stakeholder alignment.</p>
+      <span class="cat-tag">Teams of 2–4</span>
+    </div>
+    <div class="cat-card" data-tilt>
+      <span class="cat-card-num">06</span>
+      <div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="cat-title">International Trade</div>
+      <p class="cat-desc">Students simulate cross-border business negotiations, navigate trade regulations, and develop market entry strategies for emerging economies. Tests global commercial awareness and negotiation skills.</p>
+      <span class="cat-tag">Teams of 3</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FORMAT -->
+<section id="format">
+  <div class="format-layout">
+    <div class="format-intro reveal-l">
+      <div class="section-label">Competition Format</div>
+      <h2>Three rounds.<br><em>One winner.</em></h2>
+      <p>ASCEND competitions follow a structured three-round elimination format designed to progressively raise the stakes — from school-level performance through to international finals on the global stage.</p>
+      <p style="margin-top:1rem;">All rounds are judged by panels that include at least one representative from an ASCEND partner organization, ensuring real-world credibility and industry-relevant feedback.</p>
+    </div>
+    <div class="rounds reveal-r">
+      <div class="round-item">
+        <div class="round-num">01</div>
+        <div>
+          <div class="round-name">Preliminary Round</div>
+          <p class="round-desc">Hosted at each member school. All registered students compete within their school. Top performers from each category advance to the Regional Round. Schools submit recorded presentations or host live in-person judging sessions.</p>
+        </div>
+      </div>
+      <div class="round-item">
+        <div class="round-num">02</div>
+        <div>
+          <div class="round-name">Regional Round</div>
+          <p class="round-desc">Schools from the same region compete against each other in a virtual or in-person bracket. Industry judges score presentations on defined rubrics. The top two performers per category from each region advance to the International Finals.</p>
+        </div>
+      </div>
+      <div class="round-item">
+        <div class="round-num">03</div>
+        <div>
+          <div class="round-name">International Finals</div>
+          <p class="round-desc">Held at the ASCEND Annual International Conference. Finalists from all member schools compete live in front of a panel that includes ASCEND partner executives. Winners are announced at the awards ceremony on the final evening.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendar">
+  <div class="reveal">
+    <div class="section-label">Competition Calendar</div>
+    <h2>The <em>season</em> at a glance.</h2>
+  </div>
+  <div class="calendar-grid reveal">
+    <div class="cal-item">
+      <div class="cal-month">Sep — Oct</div>
+      <div class="cal-event">Registration Opens</div>
+      <p class="cal-detail">Schools register their student participants and select competition categories. Briefing materials distributed.</p>
+    </div>
+    <div class="cal-item">
+      <div class="cal-month">Nov — Dec</div>
+      <div class="cal-event">Preliminary Rounds</div>
+      <p class="cal-detail">School-level competitions. Judges assess all participants. Top performers per category advance to the next round.</p>
+    </div>
+    <div class="cal-item">
+      <div class="cal-month">Jan — Feb</div>
+      <div class="cal-event">Regional Rounds</div>
+      <p class="cal-detail">Multi-school regional brackets. Virtual or in-person format. Regional winners qualify for International Finals.</p>
+    </div>
+    <div class="cal-item">
+      <div class="cal-month">March</div>
+      <div class="cal-event">International Finals</div>
+      <p class="cal-detail">Live finals at the ASCEND International Conference. Awards ceremony. Industry recognition for category winners.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="comp-cta">
+  <div class="section-label" style="justify-content:center">Get Competing</div>
+  <h2>Ready to <em>enter the arena?</em></h2>
+  <p>Competition registration opens each September for member schools. If your school isn't a member yet, apply now and be ready for the upcoming season.</p>
+  <div style="display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;">
+    <a class="btn-primary" href="../join.html" data-magnetic>Apply as a Member School</a>
+    <a class="btn-outline" href="conferences.html">View Conferences →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">ASCEND</a>
+  <ul class="footer-links">
+    <li><a href="../about.html">About</a></li>
+    <li><a href="competitions.html">Programs</a></li>
+    <li><a href="../partners.html">Partners</a></li>
+    <li><a href="../join.html">Join</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 ASCEND. All rights reserved.</div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

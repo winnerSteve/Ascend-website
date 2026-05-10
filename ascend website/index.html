@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASCEND — Where Leaders Ascend</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5%;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 80% 50%, rgba(198,169,107,0.05) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 80% at 10% 30%, rgba(26,36,64,0.8) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-line {
+    position: absolute; top: 0; bottom: 0; left: 56%;
+    width: 0.5px;
+    background: linear-gradient(to bottom, transparent, var(--border), transparent);
+    pointer-events: none;
+  }
+  #hero .hero-content {
+    position: relative; z-index: 2;
+    max-width: 740px;
+  }
+  #hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 9vw, 8.5rem);
+    font-weight: 300;
+    line-height: 0.93;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1.1s 0.4s forwards;
+  }
+  #hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 2rem;
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0; animation: fadeUp 1s 0.2s forwards;
+  }
+  .hero-tag::before { content:''; display:block; width:32px; height:0.5px; background:var(--gold); }
+  .hero-sub {
+    font-size: 1rem; color: var(--cream-dim);
+    max-width: 480px; line-height: 1.85; margin-bottom: 3rem;
+    opacity: 0; animation: fadeUp 1s 0.65s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 1s 0.85s forwards;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 3rem; left: 5%;
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold-dim);
+    opacity: 0; animation: fadeUp 1s 1.6s forwards;
+  }
+
+  /* ─── ABOUT ─── */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-text p { color: var(--cream-dim); font-size: 1rem; margin-bottom: 1.2rem; line-height: 1.85; }
+  .about-text p strong { color: var(--cream); font-weight: 400; }
+  .about-text .more-link { margin-top: 2rem; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); }
+  .about-stats .stat-box { background: var(--navy); }
+
+  /* ─── PROGRAMS ─── */
+  #programs { background: var(--navy-mid); }
+  .programs-header {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: end; margin-bottom: 4rem;
+  }
+  .programs-intro { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; }
+  .program-link {
+    display: block; text-decoration: none;
+    transition: none;
+  }
+  .program-link .card { transition: background 0.4s; }
+  .program-link:hover .card { background: var(--navy-light); }
+  .program-link .card p { color: var(--cream-dim); font-size: 0.9rem; line-height: 1.8; }
+  .arrow-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1.2rem;
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold-dim);
+    transition: color 0.3s, gap 0.3s var(--ease);
+  }
+  .program-link:hover .arrow-badge { color: var(--gold); gap: 0.7rem; }
+
+  /* ─── PARTNERS ─── */
+  #partners-preview .partners-footer {
+    margin-top: 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .partners-note { font-size: 0.8rem; color: var(--gold-dim); letter-spacing: 0.06em; }
+  .partners-note a { color: var(--gold); text-decoration: none; }
+  .partners-note a:hover { opacity: 0.75; }
+
+  /* ─── JOIN ─── */
+  #join-cta { background: var(--navy-mid); text-align: center; padding: 8rem 5%; }
+  #join-cta h2 { margin-bottom: 1rem; }
+  #join-cta p { color: var(--cream-dim); max-width: 520px; margin: 0 auto 3rem; font-size: 1rem; line-height: 1.85; }
+  .cta-actions { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    #about { grid-template-columns: 1fr; gap: 3.5rem; }
+    .programs-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .hero-line { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="site-overlay"><div class="overlay-logo">ASCEND</div></div>
+<div id="scroll-progress"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">ASCEND</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li class="has-dropdown">
+      <a href="#">Programs</a>
+      <div class="nav-dropdown">
+        <a href="programs/competitions.html">Business Competitions <span class="dd-num">01</span></a>
+        <a href="programs/conferences.html">International Conferences <span class="dd-num">02</span></a>
+        <a href="programs/spirit-store.html">Spirit Store <span class="dd-num">03</span></a>
+        <a href="programs/leadership.html">Leadership Development <span class="dd-num">04</span></a>
+      </div>
+    </li>
+    <li><a href="partners.html">Partners</a></li>
+    <li><a href="join.html">Join</a></li>
+  </ul>
+  <a class="nav-cta" href="join.html">Apply Now</a>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="about.html">About</a>
+  <a href="programs/competitions.html">Competitions</a>
+  <a href="programs/conferences.html">Conferences</a>
+  <a href="programs/spirit-store.html">Spirit Store</a>
+  <a href="programs/leadership.html">Leadership</a>
+  <div class="mobile-divider"></div>
+  <a href="partners.html">Partners</a>
+  <a href="join.html" class="mobile-cta">Apply Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas class="hero-canvas"></canvas>
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <div class="hero-tag">International Student Organization</div>
+    <h1>Where Leaders<br><em>Ascend.</em></h1>
+    <p class="hero-sub">
+      ASCEND is the international organization for student commerce, entrepreneurship, and leadership — uniting schools across the globe through competition, collaboration, and ambition.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="join.html" data-magnetic>Bring ASCEND to Your School</a>
+      <a class="btn-ghost" href="about.html">Discover our story →</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span class="scroll-line"></span>Scroll to explore</div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Samsung</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Aramco</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Manchester City FC</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Fairtrade</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Bitexco</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">FURSYS</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Samsung</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Aramco</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Manchester City FC</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Fairtrade</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">Bitexco</span><span class="ticker-dot"> · </span>
+    <span class="ticker-item">FURSYS</span><span class="ticker-dot"> · </span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text reveal">
+    <div class="section-label">Our Story</div>
+    <h2>Built from<br><em>adversity,</em><br>built to last.</h2>
+    <p>ASCEND was born when DECA — the global business education organization — suddenly banned all international chapters, leaving hundreds of schools without a home. Rather than accept that loss, we built something better.</p>
+    <p>The <strong>Association of Student Commerce, Entrepreneurship, and New Developing Leaders</strong> is a fully independent international organization designed specifically for international schools — providing everything DECA offered and more, on a global stage.</p>
+    <p>From business competitions and international conferences to Spirit Store operations and leadership development, ASCEND gives students the arena to compete, grow, and <strong>rise to the top</strong>.</p>
+    <div class="more-link"><a class="btn-ghost" href="about.html">Read our full story →</a></div>
+  </div>
+  <div class="about-stats reveal" data-delay="200">
+    <div class="stat-box"><div class="stat-num" data-count="6" data-suffix="+">6+</div><div class="stat-label">Global Partners</div></div>
+    <div class="stat-box"><div class="stat-num">∞</div><div class="stat-label">Schools Welcome</div></div>
+    <div class="stat-box"><div class="stat-num" data-count="4">4</div><div class="stat-label">Pillars of Focus</div></div>
+    <div class="stat-box"><div class="stat-num" data-count="1">1</div><div class="stat-label">Global Community</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="programs-header reveal">
+    <div>
+      <div class="section-label">What We Do</div>
+      <h2>Four pillars.<br><em>One mission.</em></h2>
+    </div>
+    <p class="programs-intro">
+      ASCEND operates across four interconnected programs that develop well-rounded student leaders equipped for the modern business world. Each pillar reinforces the others — because real leadership is multidimensional.
+    </p>
+  </div>
+  <div class="card-grid reveal">
+    <a class="program-link" href="programs/competitions.html">
+      <div class="card" data-tilt>
+        <span class="card-num">01</span>
+        <div class="card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+        <h3>Business Competitions</h3>
+        <p>Rigorous case study, entrepreneurship, and marketing competitions on an international stage.</p>
+        <span class="arrow-badge">Explore →</span>
+      </div>
+    </a>
+    <a class="program-link" href="programs/conferences.html">
+      <div class="card" data-tilt>
+        <span class="card-num">02</span>
+        <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+        <h3>International Conferences</h3>
+        <p>Annual summits where students from member schools connect, compete, and grow together.</p>
+        <span class="arrow-badge">Explore →</span>
+      </div>
+    </a>
+    <a class="program-link" href="programs/spirit-store.html">
+      <div class="card" data-tilt>
+        <span class="card-num">03</span>
+        <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+        <h3>Spirit Store</h3>
+        <p>Student-run commerce operations providing real-world retail and financial experience.</p>
+        <span class="arrow-badge">Explore →</span>
+      </div>
+    </a>
+    <a class="program-link" href="programs/leadership.html">
+      <div class="card" data-tilt>
+        <span class="card-num">04</span>
+        <div class="card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+        <h3>Leadership Development</h3>
+        <p>Mentorship, workshops, and real responsibility that transform students into leaders.</p>
+        <span class="arrow-badge">Explore →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PARTNERS PREVIEW -->
+<section id="partners-preview">
+  <div class="reveal">
+    <div class="section-label">Our Partners</div>
+    <h2>Backed by the<br><em>world's best.</em></h2>
+  </div>
+  <div class="partner-grid reveal" data-delay="200">
+    <div class="partner-cell"><div class="partner-name">Samsung</div><div class="partner-type">Technology &amp; Innovation</div></div>
+    <div class="partner-cell"><div class="partner-name">Aramco</div><div class="partner-type">Energy &amp; Industry</div></div>
+    <div class="partner-cell"><div class="partner-name">Manchester City FC</div><div class="partner-type">Sport &amp; Global Brand</div></div>
+    <div class="partner-cell"><div class="partner-name">Fairtrade</div><div class="partner-type">Ethics &amp; Sustainability</div></div>
+    <div class="partner-cell"><div class="partner-name">Bitexco</div><div class="partner-type">Real Estate &amp; Development</div></div>
+    <div class="partner-cell"><div class="partner-name">FURSYS</div><div class="partner-type">Design &amp; Workspace</div></div>
+  </div>
+  <div class="partners-footer reveal">
+    <p class="partners-note">Interested in partnering? <a href="join.html">Get in touch →</a></p>
+    <a class="btn-ghost" href="partners.html">View all partners →</a>
+  </div>
+</section>
+
+<!-- JOIN CTA -->
+<section id="join-cta">
+  <div class="section-label" style="justify-content:center">Join the Movement</div>
+  <h2>Ready to <em>Ascend?</em></h2>
+  <p>Whether you're a school looking to bring ASCEND to your campus, a student ready to compete, or an organization wanting to partner — we'd love to have you.</p>
+  <div class="cta-actions">
+    <a class="btn-primary" href="join.html" data-magnetic>Apply as a Member School</a>
+    <a class="btn-outline" href="join.html">Partner With Us</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">ASCEND</a>
+  <ul class="footer-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="programs/competitions.html">Programs</a></li>
+    <li><a href="partners.html">Partners</a></li>
+    <li><a href="join.html">Join</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 ASCEND. All rights reserved.</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

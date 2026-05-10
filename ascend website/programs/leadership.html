@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership Development — ASCEND</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<style>
+  /* ─── PHILOSOPHY ─── */
+  #philosophy { padding: 7rem 5%; background: var(--navy-mid); }
+  .phil-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .phil-text p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-bottom: 1.2rem; }
+  .phil-text p strong { color: var(--cream); font-weight: 400; }
+  .phil-quote {
+    border-left: 1.5px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: rgba(198,169,107,0.04);
+  }
+  .phil-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 300; font-style: italic;
+    color: var(--white); line-height: 1.5; margin: 0;
+  }
+  .phil-quote cite { display: block; margin-top: 0.6rem; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim); font-style: normal; }
+  .phil-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); }
+  .phil-pillar { background: var(--navy-mid); padding: 2rem 1.8rem; transition: background 0.3s; }
+  .phil-pillar:hover { background: var(--navy-light); }
+  .phil-pillar-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .phil-pillar-val { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--white); }
+
+  /* ─── TRACKS ─── */
+  #tracks { padding: 7rem 5%; }
+  .tracks-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
+  .tracks-lead { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; }
+  .tracks-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5px; background: var(--border); }
+  .track {
+    background: var(--navy); padding: 3rem 2.8rem;
+    position: relative; overflow: hidden;
+    transition: background 0.4s;
+  }
+  .track:hover { background: var(--navy-light); }
+  .track-bg-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 8rem; font-weight: 300;
+    color: rgba(198,169,107,0.04); position: absolute; bottom: -1rem; right: 1rem;
+    line-height: 1; user-select: none; transition: color 0.4s;
+  }
+  .track:hover .track-bg-num { color: rgba(198,169,107,0.09); }
+  .track-icon { width: 38px; height: 38px; border: 0.5px solid var(--gold-dim); display: flex; align-items: center; justify-content: center; margin-bottom: 1.6rem; }
+  .track-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .track-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .track-name { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 300; color: var(--white); margin-bottom: 1rem; }
+  .track-name em { font-style: italic; color: var(--gold); }
+  .track-desc { font-size: 0.9rem; color: var(--cream-dim); line-height: 1.8; margin-bottom: 1.5rem; }
+  .track-modules { list-style: none; }
+  .track-modules li {
+    font-size: 0.82rem; color: var(--cream-dim);
+    padding: 0.5rem 0; border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .track-modules li:last-child { border-bottom: none; }
+  .track-modules li::before { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  /* ─── MENTORSHIP ─── */
+  #mentorship { background: var(--navy-mid); padding: 7rem 5%; }
+  .mentor-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .mentor-text h2 { margin-bottom: 1rem; }
+  .mentor-text p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-bottom: 1.2rem; }
+  .mentor-process { }
+  .mentor-step {
+    display: grid; grid-template-columns: 48px 1fr;
+    gap: 1.5rem; padding: 1.5rem 0; border-bottom: 0.5px solid var(--border);
+  }
+  .mentor-step:last-child { border-bottom: none; }
+  .mentor-step-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300;
+    color: var(--gold); line-height: 1; padding-top: 0.15rem;
+  }
+  .mentor-step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.35rem; }
+  .mentor-step-text { font-size: 0.85rem; color: var(--cream-dim); line-height: 1.8; }
+
+  /* ─── SUMMIT ─── */
+  #summit { padding: 7rem 5%; }
+  .summit-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 6rem; align-items: center; }
+  .summit-text p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-bottom: 1.2rem; }
+  .summit-stats { display: grid; gap: 1.5px; background: var(--border); }
+  .summit-stat { background: var(--navy); padding: 2rem 2rem; }
+  .summit-stat-val { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 0.3rem; }
+  .summit-stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-dim); }
+
+  /* ─── CTA ─── */
+  #lead-cta { background: var(--navy-mid); padding: 8rem 5%; }
+  .cta-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .cta-content h2 { margin-bottom: 1rem; }
+  .cta-content p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-bottom: 2.5rem; }
+  .cta-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); }
+  .cta-nav-item {
+    background: var(--navy-mid); padding: 1.8rem 1.8rem;
+    text-decoration: none; transition: background 0.3s;
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .cta-nav-item:hover { background: var(--navy-light); }
+  .cta-nav-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); }
+  .cta-nav-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--white); }
+  .cta-nav-arrow { font-size: 0.8rem; color: var(--gold-dim); margin-top: 0.5rem; transition: color 0.3s; }
+  .cta-nav-item:hover .cta-nav-arrow { color: var(--gold); }
+
+  @media (max-width: 900px) {
+    .phil-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+    .tracks-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .mentor-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .summit-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+    .cta-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .phil-pillars { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .tracks-grid { grid-template-columns: 1fr; }
+    .cta-nav { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="site-overlay"><div class="overlay-logo">ASCEND</div></div>
+<div id="scroll-progress"></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">ASCEND</a>
+  <ul class="nav-links">
+    <li><a href="../about.html">About</a></li>
+    <li class="has-dropdown">
+      <a href="#" class="active">Programs</a>
+      <div class="nav-dropdown">
+        <a href="competitions.html">Business Competitions <span class="dd-num">01</span></a>
+        <a href="conferences.html">International Conferences <span class="dd-num">02</span></a>
+        <a href="spirit-store.html">Spirit Store <span class="dd-num">03</span></a>
+        <a href="leadership.html" class="active">Leadership Development <span class="dd-num">04</span></a>
+      </div>
+    </li>
+    <li><a href="../partners.html">Partners</a></li>
+    <li><a href="../join.html">Join</a></li>
+  </ul>
+  <a class="nav-cta" href="../join.html">Apply Now</a>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="../about.html">About</a>
+  <a href="competitions.html">Competitions</a>
+  <a href="conferences.html">Conferences</a>
+  <a href="spirit-store.html">Spirit Store</a>
+  <a href="leadership.html">Leadership</a>
+  <div class="mobile-divider"></div>
+  <a href="../partners.html">Partners</a>
+  <a href="../join.html" class="mobile-cta">Apply Now</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <canvas class="hero-canvas"></canvas>
+  <div class="hero-content" style="animation: fadeUp 1s 0.3s both">
+    <div class="hero-tag">Program 04 — Leadership Development</div>
+    <h1>Lead.<br><em>Learn. Rise.</em></h1>
+    <p class="hero-sub">Leadership is not a title. It is a practice — developed over time, through challenge, feedback, and real responsibility. ASCEND's leadership programme is built to accelerate that process.</p>
+    <div style="display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:0.5rem;">
+      <a class="btn-primary" href="#tracks" data-magnetic>Explore the Tracks</a>
+      <a class="btn-ghost" href="#mentorship">Mentorship Programme →</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span class="scroll-line"></span>Scroll to explore</div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="phil-layout">
+    <div class="phil-text reveal-l">
+      <div class="section-label">Our Philosophy</div>
+      <h2>Leaders are<br><em>made, not born.</em></h2>
+      <p>ASCEND believes that leadership potential exists in every student who walks through our programmes. Our role is not to identify leaders — it is to <strong>develop them</strong>.</p>
+      <div class="phil-quote">
+        <p>"The best leaders I know weren't born knowing what to do. They learned by doing — and doing it in environments that demanded more of them."</p>
+        <cite>— ASCEND Leadership Curriculum Framework</cite>
+      </div>
+      <p>Our leadership development programme is built on three convictions: that <strong>real responsibility develops real capability</strong>, that <strong>feedback accelerates growth</strong>, and that <strong>diverse perspectives sharpen thinking</strong>. Every element of our programme reflects these beliefs.</p>
+    </div>
+    <div class="phil-pillars reveal-r">
+      <div class="phil-pillar"><div class="phil-pillar-label">Approach</div><div class="phil-pillar-val">Learning by doing</div></div>
+      <div class="phil-pillar"><div class="phil-pillar-label">Duration</div><div class="phil-pillar-val">Full academic year</div></div>
+      <div class="phil-pillar"><div class="phil-pillar-label">Format</div><div class="phil-pillar-val">Workshops + mentorship</div></div>
+      <div class="phil-pillar"><div class="phil-pillar-label">Tracks</div><div class="phil-pillar-val">Four specialisations</div></div>
+      <div class="phil-pillar"><div class="phil-pillar-label">Mentors</div><div class="phil-pillar-val">Partner executives</div></div>
+      <div class="phil-pillar"><div class="phil-pillar-label">Recognition</div><div class="phil-pillar-val">ASCEND certification</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TRACKS -->
+<section id="tracks">
+  <div class="tracks-header reveal">
+    <div>
+      <div class="section-label">Development Tracks</div>
+      <h2>Choose your<br><em>specialism.</em></h2>
+    </div>
+    <p class="tracks-lead">Students select one of four leadership tracks at the start of the programme year. Each track mirrors a real functional area of business — ensuring that leadership development is grounded in commercial context, not abstraction.</p>
+  </div>
+  <div class="tracks-grid reveal">
+    <div class="track" data-tilt>
+      <span class="track-bg-num">01</span>
+      <div class="track-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+      <div class="track-label">Track 01</div>
+      <div class="track-name"><em>Executive</em> Track</div>
+      <p class="track-desc">For students who want to lead at the highest level. This track develops the skills of senior leadership — strategic thinking, decision-making under uncertainty, organisational culture, and public communication.</p>
+      <ul class="track-modules">
+        <li>Strategic Vision &amp; Planning</li>
+        <li>Organisational Leadership</li>
+        <li>Executive Communication &amp; Public Speaking</li>
+        <li>Crisis Management &amp; Decision Frameworks</li>
+        <li>Ethics in Business Leadership</li>
+      </ul>
+    </div>
+    <div class="track" data-tilt>
+      <span class="track-bg-num">02</span>
+      <div class="track-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="track-label">Track 02</div>
+      <div class="track-name"><em>Commercial</em> Track</div>
+      <p class="track-desc">Built for students drawn to sales, business development, and deal-making. This track sharpens the commercial instincts that drive growth — from identifying opportunity to closing the deal.</p>
+      <ul class="track-modules">
+        <li>Sales Strategy &amp; Pipeline Management</li>
+        <li>Business Development &amp; Negotiation</li>
+        <li>Pitch Craft &amp; Investor Communication</li>
+        <li>Commercial Modelling &amp; Unit Economics</li>
+        <li>Building Partnerships that Last</li>
+      </ul>
+    </div>
+    <div class="track" data-tilt>
+      <span class="track-bg-num">03</span>
+      <div class="track-icon"><svg viewBox="0 0 24 24"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></div>
+      <div class="track-label">Track 03</div>
+      <div class="track-name"><em>Marketing</em> Track</div>
+      <p class="track-desc">For students who want to build brands and move audiences. This track covers the full spectrum of modern marketing — from brand strategy and creative direction to digital execution and campaign analytics.</p>
+      <ul class="track-modules">
+        <li>Brand Strategy &amp; Positioning</li>
+        <li>Digital Marketing &amp; Content Strategy</li>
+        <li>Consumer Psychology &amp; Behaviour</li>
+        <li>Campaign Planning &amp; Measurement</li>
+        <li>Creativity as a Business Skill</li>
+      </ul>
+    </div>
+    <div class="track" data-tilt>
+      <span class="track-bg-num">04</span>
+      <div class="track-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="track-label">Track 04</div>
+      <div class="track-name"><em>Finance</em> Track</div>
+      <p class="track-desc">Designed for students who want to understand how money moves and how businesses make decisions with it. This track develops genuine financial literacy — from reading a P&amp;L to building an investment case.</p>
+      <ul class="track-modules">
+        <li>Financial Statements &amp; Analysis</li>
+        <li>Budgeting, Forecasting &amp; Scenario Planning</li>
+        <li>Investment Principles &amp; Portfolio Thinking</li>
+        <li>Corporate Finance &amp; Capital Allocation</li>
+        <li>Presenting Numbers to Non-Financial Audiences</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MENTORSHIP -->
+<section id="mentorship">
+  <div class="mentor-layout">
+    <div class="mentor-text reveal-l">
+      <div class="section-label">Mentorship Programme</div>
+      <h2>Guided by those<br>who've <em>been there.</em></h2>
+      <p>Every ASCEND leadership student is paired with a mentor — a working professional from one of ASCEND's partner organisations. This isn't a once-a-term check-in. It is a structured, year-long relationship built around the student's development goals.</p>
+      <p>Mentors are matched to students based on track alignment, career interests, and geography. The relationship is guided by ASCEND's mentorship framework — ensuring it remains focused, productive, and genuinely valuable for both parties.</p>
+      <a class="btn-ghost" href="../partners.html">Meet our partners →</a>
+    </div>
+    <div class="mentor-process reveal-r">
+      <div class="mentor-step">
+        <div class="mentor-step-num">01</div>
+        <div>
+          <div class="mentor-step-title">Mentor Matching</div>
+          <p class="mentor-step-text">Students complete a detailed profile at programme start. ASCEND's team matches each student to a mentor from the partner network based on track, goals, and industry interest.</p>
+        </div>
+      </div>
+      <div class="mentor-step">
+        <div class="mentor-step-num">02</div>
+        <div>
+          <div class="mentor-step-title">Structured Kickoff</div>
+          <p class="mentor-step-text">Student and mentor meet in a facilitated kickoff session to set three development goals for the year, agree a meeting cadence, and establish working norms.</p>
+        </div>
+      </div>
+      <div class="mentor-step">
+        <div class="mentor-step-num">03</div>
+        <div>
+          <div class="mentor-step-title">Monthly Sessions</div>
+          <p class="mentor-step-text">Mentor and mentee meet monthly — in person at conferences or virtually — for a 45-minute session. Sessions follow a structured agenda but allow space for organic conversation.</p>
+        </div>
+      </div>
+      <div class="mentor-step">
+        <div class="mentor-step-num">04</div>
+        <div>
+          <div class="mentor-step-title">Year-End Reflection</div>
+          <p class="mentor-step-text">Students present their year-end reflection to a small panel at the ASCEND conference — articulating what they set out to develop, what they achieved, and what comes next.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMIT -->
+<section id="summit">
+  <div class="summit-layout">
+    <div class="summit-text reveal-l">
+      <div class="section-label">Annual Leadership Summit</div>
+      <h2>One day that<br><em>changes perspective.</em></h2>
+      <p>Separate from the main ASCEND conference, the Annual Leadership Summit is an invitation-only full-day event for students who have completed a full year in the leadership programme.</p>
+      <p>The Summit is run in partnership with ASCEND's founding partners — featuring executive roundtables, immersive scenario challenges, and a closing address from a senior industry leader.</p>
+      <p>Students leave the Summit with a deeper understanding of what great leadership looks like in practice — and a concrete sense of where they want to go next.</p>
+      <a class="btn-ghost" href="../join.html">Apply for membership →</a>
+    </div>
+    <div class="summit-stats reveal-r">
+      <div class="summit-stat"><div class="summit-stat-val" data-count="1">1</div><div class="summit-stat-label">Full Day Event</div></div>
+      <div class="summit-stat"><div class="summit-stat-val">Invite</div><div class="summit-stat-label">Only Access</div></div>
+      <div class="summit-stat"><div class="summit-stat-val" data-count="4">4</div><div class="summit-stat-label">Development Tracks</div></div>
+      <div class="summit-stat"><div class="summit-stat-val">6+</div><div class="summit-stat-label">Partner Mentors</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="lead-cta">
+  <div class="cta-layout">
+    <div class="cta-content reveal-l">
+      <div class="section-label">Start Developing</div>
+      <h2>The best time to<br>start is <em>now.</em></h2>
+      <p>Leadership development is not something you can start later. Every year without intentional practice is a year of potential left unrealised. Apply as a member school and give your students access to the programme that changes how they see themselves — and what they're capable of.</p>
+      <div style="display:flex;gap:1.2rem;flex-wrap:wrap;">
+        <a class="btn-primary" href="../join.html" data-magnetic>Apply as a Member School</a>
+        <a class="btn-outline" href="../about.html">Our Story</a>
+      </div>
+    </div>
+    <div class="cta-nav reveal-r">
+      <a class="cta-nav-item" href="competitions.html">
+        <span class="cta-nav-label">Program 01</span>
+        <span class="cta-nav-title">Business Competitions</span>
+        <span class="cta-nav-arrow">→</span>
+      </a>
+      <a class="cta-nav-item" href="conferences.html">
+        <span class="cta-nav-label">Program 02</span>
+        <span class="cta-nav-title">International Conferences</span>
+        <span class="cta-nav-arrow">→</span>
+      </a>
+      <a class="cta-nav-item" href="spirit-store.html">
+        <span class="cta-nav-label">Program 03</span>
+        <span class="cta-nav-title">Spirit Store</span>
+        <span class="cta-nav-arrow">→</span>
+      </a>
+      <a class="cta-nav-item" href="../partners.html">
+        <span class="cta-nav-label">Explore</span>
+        <span class="cta-nav-title">Our Partners</span>
+        <span class="cta-nav-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">ASCEND</a>
+  <ul class="footer-links">
+    <li><a href="../about.html">About</a></li>
+    <li><a href="competitions.html">Programs</a></li>
+    <li><a href="../partners.html">Partners</a></li>
+    <li><a href="../join.html">Join</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 ASCEND. All rights reserved.</div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

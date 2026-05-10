@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spirit Store — ASCEND</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<style>
+  /* ─── CONCEPT ─── */
+  #concept { padding: 7rem 5%; }
+  .concept-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .concept-text p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-bottom: 1.2rem; }
+  .concept-text p strong { color: var(--cream); font-weight: 400; }
+  .concept-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border);
+  }
+  .concept-cell {
+    background: var(--navy-mid); padding: 2.5rem 2rem;
+    transition: background 0.4s;
+  }
+  .concept-cell:hover { background: var(--navy-light); }
+  .concept-cell-icon { font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--gold); }
+  .concept-cell-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.4rem; }
+  .concept-cell-text { font-size: 0.82rem; color: var(--cream-dim); line-height: 1.75; }
+
+  /* ─── ROLES ─── */
+  #roles { background: var(--navy-mid); padding: 7rem 5%; }
+  .roles-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
+  .roles-lead { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; }
+  .roles-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: var(--border); }
+  .role-card {
+    background: var(--navy-mid); padding: 2.8rem 2rem;
+    position: relative; overflow: hidden; transition: background 0.4s;
+  }
+  .role-card:hover { background: var(--navy-light); }
+  .role-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0); transition: transform 0.5s var(--ease);
+  }
+  .role-card:hover::before { transform: scaleX(1); }
+  .role-num { font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 1.2rem; }
+  .role-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--white); margin-bottom: 0.8rem; }
+  .role-desc { font-size: 0.85rem; color: var(--cream-dim); line-height: 1.8; margin-bottom: 1.2rem; }
+  .role-skills { list-style: none; }
+  .role-skills li { font-size: 0.78rem; color: var(--gold-dim); padding: 0.3rem 0; border-bottom: 0.5px solid var(--border); letter-spacing: 0.04em; }
+  .role-skills li:last-child { border-bottom: none; }
+
+  /* ─── SKILLS ─── */
+  #skills { padding: 7rem 5%; }
+  .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .skills-intro p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-top: 1rem; }
+  .skills-bars { }
+  .skill-bar { margin-bottom: 2.2rem; }
+  .skill-bar-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.6rem; }
+  .skill-bar-name { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cream); }
+  .skill-bar-pct { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); }
+  .skill-bar-track { height: 1px; background: var(--border); position: relative; overflow: hidden; }
+  .skill-bar-fill {
+    position: absolute; top: 0; left: 0; height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    width: 0%; transition: width 1.2s var(--ease);
+  }
+  .skill-bar-fill.animated { width: var(--target-width); }
+
+  /* ─── LAUNCH ─── */
+  #launch { background: var(--navy-mid); padding: 7rem 5%; }
+  .launch-header { margin-bottom: 4rem; }
+  .launch-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); }
+  .launch-step {
+    background: var(--navy-mid); padding: 3rem 2.5rem;
+    transition: background 0.4s;
+  }
+  .launch-step:hover { background: var(--navy-light); }
+  .launch-step-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300;
+    color: rgba(198,169,107,0.12); line-height: 1; margin-bottom: 1.2rem; transition: color 0.4s;
+  }
+  .launch-step:hover .launch-step-num { color: rgba(198,169,107,0.22); }
+  .launch-step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--white); margin-bottom: 0.7rem; }
+  .launch-step-text { font-size: 0.88rem; color: var(--cream-dim); line-height: 1.8; }
+
+  /* ─── CTA ─── */
+  #store-cta { padding: 8rem 5%; text-align: center; }
+  #store-cta h2 { margin-bottom: 1rem; }
+  #store-cta p { color: var(--cream-dim); max-width: 500px; margin: 0 auto 3rem; font-size: 1rem; line-height: 1.85; }
+
+  @media (max-width: 900px) {
+    .concept-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+    .roles-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .roles-grid { grid-template-columns: repeat(2, 1fr); }
+    .skills-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .launch-steps { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .roles-grid { grid-template-columns: 1fr; }
+    .concept-visual { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="site-overlay"><div class="overlay-logo">ASCEND</div></div>
+<div id="scroll-progress"></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="../index.html">ASCEND</a>
+  <ul class="nav-links">
+    <li><a href="../about.html">About</a></li>
+    <li class="has-dropdown">
+      <a href="#" class="active">Programs</a>
+      <div class="nav-dropdown">
+        <a href="competitions.html">Business Competitions <span class="dd-num">01</span></a>
+        <a href="conferences.html">International Conferences <span class="dd-num">02</span></a>
+        <a href="spirit-store.html" class="active">Spirit Store <span class="dd-num">03</span></a>
+        <a href="leadership.html">Leadership Development <span class="dd-num">04</span></a>
+      </div>
+    </li>
+    <li><a href="../partners.html">Partners</a></li>
+    <li><a href="../join.html">Join</a></li>
+  </ul>
+  <a class="nav-cta" href="../join.html">Apply Now</a>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="../about.html">About</a>
+  <a href="competitions.html">Competitions</a>
+  <a href="conferences.html">Conferences</a>
+  <a href="spirit-store.html">Spirit Store</a>
+  <a href="leadership.html">Leadership</a>
+  <div class="mobile-divider"></div>
+  <a href="../partners.html">Partners</a>
+  <a href="../join.html" class="mobile-cta">Apply Now</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <canvas class="hero-canvas"></canvas>
+  <div class="hero-content" style="animation: fadeUp 1s 0.3s both">
+    <div class="hero-tag">Program 03 — Spirit Store</div>
+    <h1>Commerce<br><em>in action.</em></h1>
+    <p class="hero-sub">The Spirit Store is where business theory meets reality. ASCEND chapters run real school stores — managing real inventory, real customers, and real financial outcomes. No simulation required.</p>
+    <div style="display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:0.5rem;">
+      <a class="btn-primary" href="#launch" data-magnetic>Launch Your Store</a>
+      <a class="btn-ghost" href="#roles">Explore the Roles →</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span class="scroll-line"></span>Scroll to explore</div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="concept-layout">
+    <div class="concept-text reveal-l">
+      <div class="section-label">What Is It</div>
+      <h2>A real store.<br><em>Real stakes.</em></h2>
+      <p>Every ASCEND chapter operates a Spirit Store — a student-managed retail business that sells school merchandise, branded apparel, and everyday supplies to the school community.</p>
+      <p>Students don't play shopkeeper. They run a business. They manage <strong>stock and inventory</strong>, build and execute <strong>marketing campaigns</strong>, handle <strong>customer service</strong>, and produce monthly <strong>financial reports</strong>. They make decisions with real consequences.</p>
+      <p>The Spirit Store is ASCEND's most distinctive program — and for many students, it becomes the most formative experience of their school career.</p>
+    </div>
+    <div class="concept-visual reveal-r">
+      <div class="concept-cell">
+        <div class="concept-cell-icon">▦</div>
+        <div class="concept-cell-title">Inventory Management</div>
+        <p class="concept-cell-text">Students track stock levels, manage purchase orders, and optimize inventory turnover — hands-on supply chain experience from day one.</p>
+      </div>
+      <div class="concept-cell">
+        <div class="concept-cell-icon">◈</div>
+        <div class="concept-cell-title">Financial Reporting</div>
+        <p class="concept-cell-text">Monthly P&amp;L statements, cash flow tracking, and budget management give students genuine financial literacy that goes far beyond classroom theory.</p>
+      </div>
+      <div class="concept-cell">
+        <div class="concept-cell-icon">◉</div>
+        <div class="concept-cell-title">Marketing &amp; Promotion</div>
+        <p class="concept-cell-text">Campaigns, social content, seasonal promotions, and visual merchandising — the marketing team drives awareness and footfall for every product launch.</p>
+      </div>
+      <div class="concept-cell">
+        <div class="concept-cell-icon">◎</div>
+        <div class="concept-cell-title">Customer Operations</div>
+        <p class="concept-cell-text">Staff rotations, service standards, complaints handling, and satisfaction tracking build the customer-facing skills that employers consistently rank as hardest to find.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROLES -->
+<section id="roles">
+  <div class="roles-header reveal">
+    <div>
+      <div class="section-label">Student Roles</div>
+      <h2>Every role.<br><em>Real responsibility.</em></h2>
+    </div>
+    <p class="roles-lead">The Spirit Store operates with a structure mirroring a real retail business. Each student takes on a defined role with clear accountability — because the most valuable learning happens when the stakes are genuine.</p>
+  </div>
+  <div class="roles-grid reveal">
+    <div class="role-card">
+      <div class="role-num">01</div>
+      <div class="role-title">Store Manager</div>
+      <p class="role-desc">Oversees all operations, chairs weekly team meetings, liaises with the faculty advisor, and is accountable for the store's overall performance and culture.</p>
+      <ul class="role-skills">
+        <li>General management</li>
+        <li>Team leadership</li>
+        <li>Strategic planning</li>
+        <li>Stakeholder communication</li>
+      </ul>
+    </div>
+    <div class="role-card">
+      <div class="role-num">02</div>
+      <div class="role-title">Finance Officer</div>
+      <p class="role-desc">Manages the store's finances — tracking revenue, controlling costs, producing monthly reports, and advising the team on budget decisions and pricing strategy.</p>
+      <ul class="role-skills">
+        <li>P&amp;L management</li>
+        <li>Cash flow tracking</li>
+        <li>Pricing strategy</li>
+        <li>Financial reporting</li>
+      </ul>
+    </div>
+    <div class="role-card">
+      <div class="role-num">03</div>
+      <div class="role-title">Marketing Lead</div>
+      <p class="role-desc">Owns the store's brand and promotional activity — from social campaigns to in-store visual merchandising — with a focus on driving awareness and conversion.</p>
+      <ul class="role-skills">
+        <li>Campaign planning</li>
+        <li>Social media management</li>
+        <li>Visual merchandising</li>
+        <li>Brand strategy</li>
+      </ul>
+    </div>
+    <div class="role-card">
+      <div class="role-num">04</div>
+      <div class="role-title">Operations Lead</div>
+      <p class="role-desc">Responsible for inventory, supplier relationships, staffing rotations, and ensuring the physical store runs efficiently and to standard every operating day.</p>
+      <ul class="role-skills">
+        <li>Inventory management</li>
+        <li>Supplier coordination</li>
+        <li>Staff scheduling</li>
+        <li>Quality control</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-layout">
+    <div class="skills-intro reveal-l">
+      <div class="section-label">What You'll Gain</div>
+      <h2>Skills that<br><em>employers want.</em></h2>
+      <p>Spirit Store alumni consistently outperform their peers in internship applications and university interviews — because they can point to real results, not just classroom grades. These are the skills they graduate with.</p>
+      <p style="margin-top:1rem;">All skills are self-reported by ASCEND members in post-programme surveys, rated on confidence and practical application.</p>
+    </div>
+    <div class="skills-bars reveal-r">
+      <div class="skill-bar">
+        <div class="skill-bar-header"><span class="skill-bar-name">Financial Literacy</span><span class="skill-bar-pct">94%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:94%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-header"><span class="skill-bar-name">Team Leadership</span><span class="skill-bar-pct">91%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:91%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-header"><span class="skill-bar-name">Customer Communication</span><span class="skill-bar-pct">96%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:96%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-header"><span class="skill-bar-name">Marketing Execution</span><span class="skill-bar-pct">88%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:88%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-header"><span class="skill-bar-name">Operations &amp; Logistics</span><span class="skill-bar-pct">85%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:85%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-header"><span class="skill-bar-name">Problem Solving Under Pressure</span><span class="skill-bar-pct">92%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="--target-width:92%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAUNCH -->
+<section id="launch">
+  <div class="launch-header reveal">
+    <div class="section-label">Getting Started</div>
+    <h2>Open your store<br><em>in three steps.</em></h2>
+  </div>
+  <div class="launch-steps reveal">
+    <div class="launch-step">
+      <div class="launch-step-num">01</div>
+      <div class="launch-step-title">Join ASCEND</div>
+      <p class="launch-step-text">Apply as a member school. Once accepted, your chapter receives a Spirit Store onboarding kit — including setup guidelines, role descriptions, financial templates, and a sample product catalogue.</p>
+    </div>
+    <div class="launch-step">
+      <div class="launch-step-num">02</div>
+      <div class="launch-step-title">Build Your Team</div>
+      <p class="launch-step-text">Recruit students into the four core roles. ASCEND provides a role assignment framework and a structured induction curriculum to get your team confident and ready before opening day.</p>
+    </div>
+    <div class="launch-step">
+      <div class="launch-step-num">03</div>
+      <div class="launch-step-title">Open &amp; Operate</div>
+      <p class="launch-step-text">Launch your store with your school community. From there, your student team runs it — with ongoing support from ASCEND and check-ins from your dedicated chapter advisor.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="store-cta">
+  <div class="section-label" style="justify-content:center">Start Trading</div>
+  <h2>Ready to open<br><em>for business?</em></h2>
+  <p>The Spirit Store is available to all ASCEND member schools. Apply now and your chapter can be operational within the same academic term.</p>
+  <div style="display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;">
+    <a class="btn-primary" href="../join.html" data-magnetic>Apply as a Member School</a>
+    <a class="btn-outline" href="leadership.html">Leadership Development →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">ASCEND</a>
+  <ul class="footer-links">
+    <li><a href="../about.html">About</a></li>
+    <li><a href="competitions.html">Programs</a></li>
+    <li><a href="../partners.html">Partners</a></li>
+    <li><a href="../join.html">Join</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 ASCEND. All rights reserved.</div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+  // Animate skill bars on scroll
+  const bars = document.querySelectorAll('.skill-bar-fill');
+  const barObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('animated'), 200);
+        barObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  bars.forEach(b => barObs.observe(b));
+</script>
+</body>
+</html>

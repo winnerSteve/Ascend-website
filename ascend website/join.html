@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join — ASCEND</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+  /* ─── TRACKS ─── */
+  #tracks { padding: 7rem 5%; }
+  .tracks-header { margin-bottom: 4rem; }
+  .tracks-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5px; background: var(--border);
+  }
+  .track-card {
+    background: var(--navy-mid);
+    padding: 4rem 3rem;
+    position: relative; overflow: hidden;
+    transition: background 0.4s;
+  }
+  .track-card:hover { background: var(--navy-light); }
+  .track-card::after {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 2px; height: 0%;
+    background: var(--gold);
+    transition: height 0.5s var(--ease);
+  }
+  .track-card:hover::after { height: 100%; }
+  .track-icon {
+    width: 48px; height: 48px;
+    border: 0.5px solid var(--gold-dim);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .track-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .track-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .track-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--white); margin-bottom: 1rem; }
+  .track-title em { font-style: italic; color: var(--gold); }
+  .track-desc { color: var(--cream-dim); font-size: 0.95rem; line-height: 1.85; margin-bottom: 2rem; }
+  .track-perks { list-style: none; margin-bottom: 2.5rem; }
+  .track-perks li {
+    font-size: 0.85rem; color: var(--cream-dim);
+    padding: 0.55rem 0; border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .track-perks li:last-child { border-bottom: none; }
+  .track-perks li::before { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  /* ─── PROCESS ─── */
+  #process { background: var(--navy-mid); padding: 7rem 5%; }
+  .process-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
+  .process-lead { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px; background: var(--border);
+  }
+  .step {
+    background: var(--navy-mid); padding: 2.5rem 2rem;
+    transition: background 0.4s;
+  }
+  .step:hover { background: var(--navy-light); }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300;
+    color: rgba(198,169,107,0.2); line-height: 1; margin-bottom: 1rem;
+  }
+  .step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 0.5rem; }
+  .step-text { font-size: 0.85rem; color: var(--cream-dim); line-height: 1.8; }
+
+  /* ─── FAQ ─── */
+  #faq { padding: 7rem 5%; }
+  .faq-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
+  .faq-intro p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-top: 1rem; }
+
+  /* ─── FORM ─── */
+  #contact-form { background: var(--navy-mid); padding: 7rem 5%; }
+  .form-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .form-side h2 { margin-bottom: 1rem; }
+  .form-side p { color: var(--cream-dim); font-size: 1rem; line-height: 1.85; margin-bottom: 2rem; }
+  .form-contact-item { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+  .form-contact-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim); width: 80px; flex-shrink: 0; }
+  .form-contact-val { font-size: 0.88rem; color: var(--cream-dim); }
+  .form-contact-val a { color: var(--gold); text-decoration: none; }
+  .contact-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+  .contact-form-grid .form-group.full { grid-column: 1 / -1; }
+  .form-submit { margin-top: 2rem; }
+  .form-note { margin-top: 1rem; font-size: 0.75rem; color: var(--gold-dim); letter-spacing: 0.06em; }
+
+  @media (max-width: 900px) {
+    .tracks-grid { grid-template-columns: 1fr; }
+    .process-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    .faq-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .form-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+    .contact-form-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .steps-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="site-overlay"><div class="overlay-logo">ASCEND</div></div>
+<div id="scroll-progress"></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">ASCEND</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li class="has-dropdown">
+      <a href="#">Programs</a>
+      <div class="nav-dropdown">
+        <a href="programs/competitions.html">Business Competitions <span class="dd-num">01</span></a>
+        <a href="programs/conferences.html">International Conferences <span class="dd-num">02</span></a>
+        <a href="programs/spirit-store.html">Spirit Store <span class="dd-num">03</span></a>
+        <a href="programs/leadership.html">Leadership Development <span class="dd-num">04</span></a>
+      </div>
+    </li>
+    <li><a href="partners.html">Partners</a></li>
+    <li><a href="join.html" class="active">Join</a></li>
+  </ul>
+  <a class="nav-cta" href="join.html">Apply Now</a>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="about.html">About</a>
+  <a href="programs/competitions.html">Competitions</a>
+  <a href="programs/conferences.html">Conferences</a>
+  <a href="programs/spirit-store.html">Spirit Store</a>
+  <a href="programs/leadership.html">Leadership</a>
+  <div class="mobile-divider"></div>
+  <a href="partners.html">Partners</a>
+  <a href="join.html" class="mobile-cta">Apply Now</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <canvas class="hero-canvas"></canvas>
+  <div class="hero-content" style="animation: fadeUp 1s 0.3s both">
+    <div class="hero-tag">Join ASCEND</div>
+    <h1>Your journey<br><em>starts here.</em></h1>
+    <p class="hero-sub">Whether you're a school ready to launch a chapter or an organization looking to invest in the next generation — ASCEND has a path for you.</p>
+  </div>
+  <div class="hero-scroll"><span class="scroll-line"></span>Scroll to explore</div>
+</section>
+
+<!-- TRACKS -->
+<section id="tracks">
+  <div class="tracks-header reveal">
+    <div class="section-label">Two Paths</div>
+    <h2>Choose your<br><em>entry point.</em></h2>
+  </div>
+  <div class="tracks-grid">
+    <div class="track-card reveal">
+      <div class="track-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      </div>
+      <div class="track-label">For Schools</div>
+      <div class="track-title">Member <em>School</em></div>
+      <p class="track-desc">Bring ASCEND to your campus and give your students access to world-class competitions, international conferences, Spirit Store operations, and a global leadership network.</p>
+      <ul class="track-perks">
+        <li>Full competition program access</li>
+        <li>Annual International Conference seats</li>
+        <li>Spirit Store setup support</li>
+        <li>Leadership development curriculum</li>
+        <li>Access to partner organization network</li>
+        <li>Dedicated ASCEND chapter support</li>
+      </ul>
+      <a class="btn-primary" href="#contact-form" data-magnetic>Apply as a Member School</a>
+    </div>
+    <div class="track-card reveal" data-delay="200">
+      <div class="track-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+      </div>
+      <div class="track-label">For Organizations</div>
+      <div class="track-title">Corporate <em>Partner</em></div>
+      <p class="track-desc">Align your organization with the next generation of global business leaders. Gain brand visibility, talent pipeline access, and meaningful impact through ASCEND's international programming.</p>
+      <ul class="track-perks">
+        <li>Branded competition categories</li>
+        <li>Conference keynote &amp; workshop slots</li>
+        <li>Student talent pipeline access</li>
+        <li>Co-branded case study development</li>
+        <li>Annual impact reports</li>
+        <li>Advisory board consideration</li>
+      </ul>
+      <a class="btn-outline" href="mailto:partners@ascendorg.com">Partner With Us</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-header reveal">
+    <div>
+      <div class="section-label">How It Works</div>
+      <h2>Four steps to<br><em>membership.</em></h2>
+    </div>
+    <p class="process-lead">We've made the onboarding process as streamlined as possible. From first contact to full launch, most schools are up and running within a single academic term.</p>
+  </div>
+  <div class="steps-grid reveal">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Submit Interest</div>
+      <p class="step-text">Fill out the application form below or email us directly. Tell us about your school, your student body, and your ambitions for an ASCEND chapter.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Initial Review Call</div>
+      <p class="step-text">An ASCEND team member will schedule a short call to learn more about your school and walk you through what membership involves in practice.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">School Assessment</div>
+      <p class="step-text">We confirm your school meets ASCEND's eligibility criteria: international school status, a committed faculty advisor, and a minimum of 10 interested students.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Launch &amp; Onboard</div>
+      <p class="step-text">We provide your chapter with full onboarding materials, competition registration access, Spirit Store setup guidance, and a dedicated ASCEND contact.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faq-layout">
+    <div class="faq-intro reveal-l">
+      <div class="section-label">FAQ</div>
+      <h2>Common<br><em>questions.</em></h2>
+      <p>Can't find your answer? Email us at <a href="mailto:contact@ascendorg.com" style="color:var(--gold);text-decoration:none;">contact@ascendorg.com</a> and we'll reply within 48 hours.</p>
+    </div>
+    <div class="faq-list reveal-r">
+      <div class="accordion-item">
+        <button class="accordion-btn">Do we need prior DECA experience to join?<span class="accordion-icon"></span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">Absolutely not. ASCEND is designed as a standalone organization — you don't need any prior DECA membership, familiarity with their formats, or existing business club infrastructure. We onboard schools from scratch and provide everything you need.</div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">Which countries are eligible to join?<span class="accordion-icon"></span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">ASCEND is open to international schools in any country. We currently have member schools across Asia, Europe, and the Middle East, and we are actively expanding. If your school is internationally accredited and has a motivated student body, you qualify.</div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">How much does membership cost?<span class="accordion-icon"></span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">Membership fees are tiered based on school size and regional context. We believe in accessible pricing and work with schools individually to find an arrangement that makes sense. Contact us for a detailed fee structure and we'll provide a transparent breakdown.</div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">Can we join mid-academic year?<span class="accordion-icon"></span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">Yes. While the ideal onboarding window aligns with the start of an academic year, we accept applications year-round. Mid-year joiners may not be eligible for the current competition season but will be fully set up for the following cycle.</div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">What is the minimum student requirement?<span class="accordion-icon"></span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">We ask that member schools have at least 10 committed student members to launch a chapter. This ensures a viable team for competitions and Spirit Store operations. There is no upper limit — the larger your chapter, the more you can achieve.</div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">Is a faculty advisor required?<span class="accordion-icon"></span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">Yes. Each ASCEND chapter requires a faculty advisor — a teacher or administrator who provides oversight and supports the student leadership team. The advisor does not need to have a business background; enthusiasm and availability are what matter most.</div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-btn">Do all member schools need a Spirit Store?<span class="accordion-icon"></span></button>
+        <div class="accordion-body"><div class="accordion-body-inner">The Spirit Store is a core ASCEND program and strongly encouraged for all member schools. We understand that some schools face space or logistical constraints, and we work with chapters to find an appropriate implementation that still delivers the real-world commerce experience ASCEND is known for.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT FORM -->
+<section id="contact-form">
+  <div class="form-layout">
+    <div class="form-side reveal-l">
+      <div class="section-label">Get In Touch</div>
+      <h2>Start the<br><em>conversation.</em></h2>
+      <p>Fill in the form and an ASCEND representative will be in touch within 48 hours. If you prefer to reach us directly:</p>
+      <div class="form-contact-item">
+        <span class="form-contact-label">Schools</span>
+        <span class="form-contact-val"><a href="mailto:contact@ascendorg.com">contact@ascendorg.com</a></span>
+      </div>
+      <div class="form-contact-item">
+        <span class="form-contact-label">Partners</span>
+        <span class="form-contact-val"><a href="mailto:partners@ascendorg.com">partners@ascendorg.com</a></span>
+      </div>
+    </div>
+    <div class="reveal-r">
+      <form class="contact-form-grid" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <input type="text" id="fname" placeholder=" " required>
+          <label class="form-label" for="fname">First Name</label>
+          <span class="form-line"></span>
+        </div>
+        <div class="form-group">
+          <input type="text" id="lname" placeholder=" " required>
+          <label class="form-label" for="lname">Last Name</label>
+          <span class="form-line"></span>
+        </div>
+        <div class="form-group full">
+          <input type="email" id="email" placeholder=" " required>
+          <label class="form-label" for="email">Email Address</label>
+          <span class="form-line"></span>
+        </div>
+        <div class="form-group full">
+          <input type="text" id="school" placeholder=" ">
+          <label class="form-label" for="school">School / Organization Name</label>
+          <span class="form-line"></span>
+        </div>
+        <div class="form-group full">
+          <select id="interest" required>
+            <option value="" disabled selected hidden></option>
+            <option value="school">Member School Application</option>
+            <option value="partner">Corporate Partnership</option>
+            <option value="media">Media Enquiry</option>
+            <option value="other">Other</option>
+          </select>
+          <label class="form-label" for="interest">I am enquiring about</label>
+          <span class="form-line"></span>
+        </div>
+        <div class="form-group full">
+          <textarea id="message" placeholder=" " rows="4"></textarea>
+          <label class="form-label" for="message">Message</label>
+          <span class="form-line"></span>
+        </div>
+        <div class="form-group full form-submit">
+          <button type="submit" class="btn-primary" data-magnetic style="width:100%;border:none;cursor:pointer;" id="submit-btn">Send Message</button>
+          <p class="form-note" id="form-note" style="display:none;color:var(--gold);">✓ Message sent. We'll be in touch within 48 hours.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">ASCEND</a>
+  <ul class="footer-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="programs/competitions.html">Programs</a></li>
+    <li><a href="partners.html">Partners</a></li>
+    <li><a href="join.html">Join</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 ASCEND. All rights reserved.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn  = document.getElementById('submit-btn');
+    const note = document.getElementById('form-note');
+    btn.textContent = 'Sending…';
+    btn.style.opacity = '0.7';
+    setTimeout(() => {
+      btn.textContent = 'Sent';
+      btn.style.background = 'var(--gold-dim)';
+      note.style.display = 'block';
+      e.target.querySelectorAll('input, select, textarea').forEach(el => el.disabled = true);
+    }, 900);
+  }
+</script>
+</body>
+</html>
